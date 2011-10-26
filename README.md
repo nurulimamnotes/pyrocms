@@ -86,3 +86,4 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [imamo](http://www.imamo.si/) Slovenian
 * [Petsagourakis George](https://github.com/petsagouris) Greek
 * [Mikael Kundert](https://github.com/mikaelkundert) Finnish
+* [Toni Haryanto](https://github.com/yllumi) Indonesia
