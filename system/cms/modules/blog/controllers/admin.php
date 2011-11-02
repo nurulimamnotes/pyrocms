@@ -121,6 +121,10 @@ class Admin extends Admin_Controller {
 	{
 		//set the base/default where clause
 		$base_where = array('show_future' => TRUE, 'status' => 'all');
+		
+		//list just own article, except who has role view_all #yllumi
+		if(!group_has_role('blog', 'view_all'))
+			$base_where += array('author_id' => $this->session->userdata('user_id'));
 
 		//add post values to base_where if f_module is posted
 		$base_where = $this->input->post('f_category') ? $base_where + array('category' => $this->input->post('f_category')) : $base_where;
@@ -241,6 +245,13 @@ class Admin extends Admin_Controller {
 		$id OR redirect('admin/blog');
 
 		$post = $this->blog_m->get($id);
+		
+		//if it's not his own or not admin, prevent editing #yllumi
+		if(empty($post))
+			show_404();
+		elseif($post->author_id != $this->session->userdata('user_id'))
+			role_or_die('blog', 'edit_all');
+			
 		$post->author = $this->ion_auth->get_user($post->author_id);
 		$post->keywords = Keywords::get_string($post->keywords);
 

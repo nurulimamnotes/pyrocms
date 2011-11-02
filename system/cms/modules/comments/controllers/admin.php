@@ -64,6 +64,10 @@ class Admin extends Admin_Controller {
 	{
 		// Only show is_active = 0 if we are moderating comments
 		$base_where = array('comments.is_active' => (int) ! Settings::get('moderate_comments'));
+		
+		//list just own article, except who has role view_all #yllumi
+		if(!group_has_role('comments', 'moderate_all'))
+			$base_where += array('author_id' => $this->session->userdata('user_id'));
 
 		//capture active
 		$base_where['comments.is_active'] = is_int($this->session->flashdata('is_active')) ? $this->session->flashdata('is_active') : $base_where['comments.is_active'];

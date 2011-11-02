@@ -49,7 +49,11 @@ class Module_Comments extends Module {
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
-			'menu'	  => 'content'
+			'menu'	  => 'content',
+			
+			'roles' => array(
+				'moderate_all'
+			)
 		);
 	}
 	

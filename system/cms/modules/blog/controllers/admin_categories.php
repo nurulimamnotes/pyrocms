@@ -53,6 +53,9 @@ class Admin_Categories extends Admin_Controller {
 	 */
 	public function index()
 	{
+		// open this page only for who has permission
+		role_or_die('blog', 'manage_categories');
+		
 		$this->pyrocache->delete_all('modules_m');
 		
 		// Create pagination links
@@ -76,6 +79,9 @@ class Admin_Categories extends Admin_Controller {
 	 */
 	public function create()
 	{
+		// open this page only for who has permission
+		role_or_die('blog', 'manage_categories');
+		
 		// Validate the data
 		if ($this->form_validation->run())
 		{
@@ -106,6 +112,9 @@ class Admin_Categories extends Admin_Controller {
 	 */
 	public function edit($id = 0)
 	{	
+		// open this page only for who has permission
+		role_or_die('blog', 'manage_categories');
+		
 		// Get the category
 		$category = $this->blog_categories_m->get($id);
 		
@@ -144,7 +153,10 @@ class Admin_Categories extends Admin_Controller {
 	 * @return void
 	 */
 	public function delete($id = 0)
-	{	
+	{
+		// open this page only for who has permission
+		role_or_die('blog', 'manage_categories');
+			
 		$id_array = (!empty($id)) ? array($id) : $this->input->post('action_to');
 		
 		// Delete multiple
@@ -202,6 +214,9 @@ class Admin_Categories extends Admin_Controller {
 	 */
 	public function create_ajax()
 	{
+		// open this page only for who has permission
+		role_or_die('blog', 'manage_categories');
+		
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{

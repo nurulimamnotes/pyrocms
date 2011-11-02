@@ -43,5 +43,7 @@
 	</table>
 
 	<div class="table_action_buttons">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete', 'publish'))); ?>
+		<?php //if user has no publish role, hidden publish button #yllumi
+			$buttons = (group_has_role('blog', 'put_live')) ? array('delete', 'publish') : array('delete');
+			$this->load->view('admin/partials/buttons', array('buttons' => $buttons)); ?>
 	</div>
