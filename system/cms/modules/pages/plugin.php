@@ -53,6 +53,24 @@ class Plugin_Pages extends Plugin
 
 		return $this->content() ? $page : $page['body'];
 	}
+
+	/**
+	 * Get a page chunk by page ID and chunk name
+	 *
+	 * @param int 		$id The ID of the page
+	 * @param string 	$slug The name of the chunk
+	 * @return array
+	 */
+	function chunk()
+	{
+		$chunk = $this->db->select('*')
+					->where('page_id', $this->attribute('id'))
+					->where('slug', $this->attribute('name'))
+					->get('page_chunks')
+					->row_array();
+
+		return ($chunk ? ($this->content() ? $chunk : $chunk['body']) : FALSE);
+	}
 	
 	/**
 	 * Children list
@@ -60,10 +78,10 @@ class Plugin_Pages extends Plugin
 	 * Creates a list of child pages
 	 *
 	 * Usage:
-	 * {pyro:pages:children id="1" limit="5"}
+	 * {{ pages:children id="1" limit="5" }}
 	 *	<h2>{title}</h2>
 	 *	    {body}
-	 * {/pyro:pages:children}
+	 * {{ /pages:children }}
 	 *
 	 * @return	array
 	 */
@@ -88,7 +106,7 @@ class Plugin_Pages extends Plugin
 	 * Creates a nested ul of child pages
 	 *
 	 * Usage:
-	 * {pyro:pages:page_tree start-id="5"}
+	 * {{ pages:page_tree start-id="5" }}
 	 * optional attributes:
 	 *
 	 * disable-levels="slug"
@@ -129,10 +147,10 @@ class Plugin_Pages extends Plugin
 	 * Check the pages parent or descendent relation
 	 *
 	 * Usage:
-	 * {pyro:pages:is child="7" parent="cookbook"} // return 1 (TRUE)
-	 * {pyro:pages:is child="recipes" descendent="books"} // return 1 (TRUE)
-	 * {pyro:pages:is children="7,8,literature" parent="6"} // return 0 (FALSE)
-	 * {pyro:pages:is children="recipes,ingredients,9" descendent="4"} // return 1 (TRUE)
+	 * {{ pages:is child="7" parent="cookbook" }} // return 1 (TRUE)
+	 * {{ pages:is child="recipes" descendent="books" }} // return 1 (TRUE)
+	 * {{ pages:is children="7,8,literature" parent="6" }} // return 0 (FALSE)
+	 * {{ pages:is children="recipes,ingredients,9" descendent="4" }} // return 1 (TRUE)
 	 *
 	 * Use Id or Slug as param, following usage data reference
 	 * Id: 4 = Slug: books
@@ -171,6 +189,22 @@ class Plugin_Pages extends Plugin
 		}
 
 		return (int) TRUE;
+	}
+	
+	/**
+	* Page has function
+	*
+	* Check if this page has children
+	*
+	* Usage:
+	* {{ pages:has id="4" }}
+	*
+	* @param 	int id 	The id of the page you want to check
+	* @return 	bool
+	*/
+	public function has()
+	{
+		return $this->page_m->has_children($this->attribute('id'));
 	}
 
 	/**

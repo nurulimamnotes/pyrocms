@@ -19,10 +19,8 @@ class Pages extends Public_Controller
 		$this->load->model('page_layouts_m');
 		
 		// This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
-		@include APPPATH.'config/routes.php'; // simple hack to get the default_controller, could find another way.
-		
-		// No page is mentioned $this->current_userand we aren't using pages as default (eg blog on homepage)
-		if ( ! $this->uri->segment(1) AND $route['default_controller'] != 'pages')
+		// No page is mentioned and we aren't using pages as default (eg blog on homepage)
+		if ( ! $this->uri->segment(1) AND $this->router->default_controller != 'pages')
 		{
 			redirect('');
 		}
@@ -187,7 +185,7 @@ class Pages extends Public_Controller
 							'</div>'.PHP_EOL;
 		}
 		
-		// Parse it so the content is parsed. We pass along $page so that {pyro:page:id} and friends work in page content
+		// Parse it so the content is parsed. We pass along $page so that {{ page:id }} and friends work in page content
 		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('page' => $page), TRUE);
 		
 		// Create page output

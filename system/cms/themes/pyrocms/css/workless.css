@@ -309,9 +309,13 @@ input[type="text"],
 input[type="password"], 
 input[type="file"], 
 textarea {
-	padding: 5px;
-	border: 3px solid #eeeeee;
-	border: 3px solid rgba(0, 0, 0, .1);
+	min-width: 260px;
+	background: #f1f1f1;
+	padding: 8px;
+	border: 1px solid #d9d9d9;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 
 textarea {
@@ -327,6 +331,67 @@ input.error {
 /* Colors for form validity */
 input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
+
+.required-icon { 
+	color: red!important;
+	display: block-inline;
+}
+
+/* Form UL Strucutre */
+
+.form_inputs {
+	width: 100%;
+}
+.form_inputs fieldset > ul,
+.form_inputs > ul {
+	width: 100%;
+	height: 100%;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+.form_inputs fieldset > ul > li, 
+.form_inputs > ul > li {
+	float: left;
+	width: 100%;
+	border-bottom: 1px solid #efefef;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+.form_inputs fieldset > ul > li:last-child, 
+.form_inputs > ul > li:last-child {
+	border-bottom: none!important;
+}
+.form_inputs fieldset > ul > li > label, 
+.form_inputs > ul > li > label {
+	width: 30%;
+	float: left;
+}
+.form_inputs fieldset > ul > li > label span, 
+.form_inputs > ul > li > label span {
+	color: red;
+}
+.form_inputs .input {
+	float: left!important;
+	padding-left: 10px;
+	width: 68%;
+}
+.form_inputs input {
+	color: #666;
+}
+.form_inputs label small {
+	display: block;
+	font-weight: normal;
+	font-style: italic;
+	color: #ccc;
+}
+.form_inputs input:focus {
+	color: #4D4D4D;
+	outline: none;
+	border-color: #ed8e28;
+}
+.form_inputs .datetime_input select {
+	width:  100px;
+}
 
 /*
 -------------------------------------------------------------------------------------------------------
@@ -887,7 +952,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .tabs {
   width: 100%;
-  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 0;
 }
 
 .tab-menu ul li, .tab-menu ol li, .pill li {
@@ -2135,6 +2200,22 @@ Non-semantic helper classes
 .textleft { text-align: left; }
 .textright { text-align: right; }
 .textcenter { text-align: center; }
+
+/* No Results */
+
+.no_data {
+	padding: 12px 10px 10px 10px;
+	border: 1px solid #D9EBF1;
+	border-radius: 5px;
+	background: #F2F7FA;
+	color: #829DAC;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px #fff;
+	margin-bottom: 10px;
+}
+.no_data img {margin-right: 4px; margin-top: -3px;}
 
 /*
 -------------------------------------------------------------------------------------------------------
